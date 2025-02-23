@@ -1,70 +1,116 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta CPF</title>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.37.5/tsparticles.min.js"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: black;
             color: white;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
             position: relative;
-            font-family: Arial, sans-serif;
         }
-        #tsparticles {
+
+        canvas {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            z-index: 0;
         }
-        .card {
+
+        .container {
             position: relative;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border: 2px solid white;
-            box-shadow: 0 0 15px white;
+            z-index: 1;
             text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
             border-radius: 10px;
+            border: 2px solid white;
+            box-shadow: 0px 0px 10px white;
         }
+
         .button {
             display: inline-block;
-            background: blue;
-            color: white;
+            margin-top: 20px;
             padding: 10px 20px;
+            background-color: blue;
+            color: white;
             text-decoration: none;
             border-radius: 5px;
-            margin-top: 10px;
+            transition: background 0.3s;
         }
+
         .button:hover {
-            background: darkblue;
+            background-color: darkblue;
         }
     </style>
 </head>
 <body>
-    <div id="tsparticles"></div>
-    <div class="card">
+    <canvas id="particles"></canvas>
+    <div class="container">
         <h1>Consulta CPF</h1>
         <p>Verifique rapidamente a situação do CPF consultado.</p>
-        <a href="cpf.html" class="button">Consultar</a>
+        <a href="cpf.php" class="button">Consultar</a>
     </div>
+    
     <script>
-        tsParticles.load("tsparticles", {
-            particles: {
-                number: { value: 100 },
-                color: { value: "#ffffff" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5 },
-                size: { value: 3 },
-                move: { enable: true, speed: 1 }
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
             }
-        });
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+            }
+
+            draw() {
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            for (let i = 0; i < 100; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
     </script>
 </body>
 </html>

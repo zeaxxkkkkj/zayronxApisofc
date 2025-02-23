@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.39.1/tsparticles.min.js"></script>
+    <title>Consulta CPF</title>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.37.5/tsparticles.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -15,7 +15,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            position: relative;
+            font-family: Arial, sans-serif;
         }
         #tsparticles {
             position: absolute;
@@ -28,48 +29,33 @@
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border: 2px solid white;
-            box-shadow: 0 0 10px white;
-            border-radius: 10px;
+            box-shadow: 0 0 15px white;
             text-align: center;
+            border-radius: 10px;
         }
         .button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
+            display: inline-block;
+            background: blue;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
             border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+            margin-top: 10px;
         }
-        .blue-button {
-            background-color: #1e90ff;
-            color: white;
-        }
-        .blue-button:hover {
-            background-color: #1c86ee;
-        }
-        .green-button {
-            background-color: #32cd32;
-            color: white;
-        }
-        .green-button:hover {
-            background-color: #2eb82e;
+        .button:hover {
+            background: darkblue;
         }
     </style>
 </head>
 <body>
     <div id="tsparticles"></div>
     <div class="card">
-        <h1>API Dashboard</h1>
-        <p>Consulte APIs de forma rápida e eficiente.</p>
-        <button class="button blue-button">Consultar API</button>
-        <button class="button green-button">Histórico</button>
+        <h1>Consulta CPF</h1>
+        <p>Verifique rapidamente a situação do CPF consultado.</p>
+        <a href="cpf.html" class="button">Consultar</a>
     </div>
-
     <script>
         tsParticles.load("tsparticles", {
-            background: { color: "#000000" },
             particles: {
                 number: { value: 100 },
                 color: { value: "#ffffff" },
